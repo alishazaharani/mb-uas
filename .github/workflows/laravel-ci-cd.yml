@@ -1,0 +1,50 @@
+name: Laravel CI/CD with Vercel
+
+on:
+  push:
+    branches: [ "staging" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, pdo_mysql
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Copy .env
+        run: cp .env.example .env
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Run tests
+        run: php artisan test
+
+  deploy-staging:
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - name: Deploy to Vercel (Staging)
+        run: |
+          npx vercel --token=$VERCEL_TOKEN --scope=$VERCEL_SCOPE --env=STAGING --confirm
+
+  deploy-production:
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    steps:
+      - name: Deploy to Vercel (Production)
+        run: |
+          npx vercel --token=$VERCEL_TOKEN --scope=$VERCEL_SCOPE --prod --confirm
