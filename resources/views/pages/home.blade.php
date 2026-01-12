@@ -15,9 +15,9 @@
                 @foreach ($categories as $category)
                     <a href="{{ route('category.show', $category->id) }}" class="category-card">
                         @if ($category->image)
-                            <img src="{{ asset('storage/' . $category->image) }}">
+                             <img src="{{ asset($category->image) }}">
                             @else
-                            <img src="{{ asset('images/no-image.png') }}" alt="No Image">
+                             <img src="{{ asset('images/no-image.png') }}" alt="No Image">
                         @endif
                         <p>{{ $category->name }}</p>
                     </a>
