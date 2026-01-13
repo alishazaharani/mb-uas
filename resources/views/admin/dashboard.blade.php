@@ -30,8 +30,4 @@
         </div>
     </section>
 
-    <section class="admin-placeholder">
-        <p>📌 Halaman ini masih bersifat sementara.</p>
-        <p>Fitur CRUD, laporan, dan statistik akan ditambahkan.</p>
-    </section>
 @endsection

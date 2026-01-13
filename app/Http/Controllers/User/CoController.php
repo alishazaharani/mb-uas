@@ -73,4 +73,14 @@ class CoController extends Controller
 
         return view('pages.history', compact('orders', 'carts'));
     }
+
+    public function show($id)
+{
+    // Ambil kategori dan produk berdasarkan id kategori
+    $category = Category::find($id);
+    $products = Product::where('category_id', $id)->get(); // Ambil produk berdasarkan kategori
+
+    return view('category.show', compact('category', 'products'));
+}
+
 }
