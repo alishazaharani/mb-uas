@@ -43,6 +43,16 @@ main : production release
 - Composer
 - MySQL
 
+## Deployment Laravel ke Railway
+
+Project Laravel dideploy ke Railway dengan cara menghubungkan repository GitHub ke Railway melalui fitur Deploy from GitHub Repo. Setelah service Laravel dibuat, ditambahkan database MySQL dari Railway dan dihubungkan ke service Laravel tersebut. Konfigurasi environment dilakukan melalui Variables di Railway dengan mengatur APP_ENV ke production, menambahkan APP_KEY, serta menggunakan variabel bawaan Railway untuk koneksi database (MYSQLHOST, MYSQLPORT, MYSQLDATABASE, MYSQLUSER, MYSQLPASSWORD).
+
+Setelah konfigurasi selesai, dilakukan pembersihan cache dan migrasi database menggunakan Railway CLI agar aplikasi dapat berjalan dengan benar di environment production. Asset frontend seperti CSS dan JavaScript dibuild dari folder resources menggunakan npm run build, lalu hasil build di folder public dipush ke GitHub agar dapat dimuat di website live.
+
+File gambar dan asset statis dipastikan berada di dalam folder public karena hanya folder tersebut yang dapat diakses langsung di production. Untuk data gambar yang berasal dari database dan storage, digunakan symbolic link storage:link agar file dapat diakses melalui public/storage.
+
+Website dapat diakses melalui Public Domain yang disediakan oleh Railway. Link tersebut berfungsi sebagai link staging maupun link publik untuk pengumpulan tugas. Konsep staging yang digunakan adalah website hasil deploy di Railway, bukan berdasarkan nama branch di GitHub. Dengan konfigurasi ini, aplikasi Laravel berhasil berjalan secara online meskipun pengembangan masih dapat dilanjutkan melalui update kode dan database di kemudian hari.
+
 **Installation**
 git clone https://github.com/alishazaharani/mb-uas.git
 cd mb-uas
