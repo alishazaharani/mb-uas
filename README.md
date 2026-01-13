@@ -1,59 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MitraBuana.id
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+ ## About The Project
+MitraBuana.id adalah aplikasi web penjualan berbasis Laravel Framework yang dikembangkan sebagai proyek Ujian Akhir Semester (UAS) dengan mengintegrasikan konsep Web Framework dan Rekayasa Perangkat Lunak (RPL).
 
-## About Laravel
+Proyek ini menekankan penerapan arsitektur MVC, pengelolaan pengembangan berbasis tim, serta proses CI/CD hingga aplikasi berhasil dideploy dan dapat diakses secara publik.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ ## Project Objectives
+- Menerapkan konsep Web Framework (Laravel)
+- Menerapkan prinsip Rekayasa Perangkat Lunak dalam kerja tim
+- Menggunakan branching strategy (feature, staging, production)
+- Mengimplementasikan CI/CD dan deployment aplikasi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Built With
+- Laravel (PHP)
+- Blade Template
+- HTML, CSS, Bootstrap
+- MySQL
+- Git & GitHub
+- GitHub Actions
+- Railway
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Live Demo
 
-## Learning Laravel
+**Production URL**
+https://loyal-mindfulness-production-1b96.up.railway.app/
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## CI/CD & Branching Strategy
+feature/frontend
+feature/backend
+        ↓
+      staging
+        ↓
+       main
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+feature/* : pengembangan fitur oleh masing-masing anggota tim
+staging : integrasi dan pengujian
+main : production release
 
-## Laravel Sponsors
+## Getting Started (Local Setup)
+- Prerequisites
+- PHP >= 8.x
+- Composer
+- MySQL
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Deployment Laravel ke Railway
 
-### Premium Partners
+Project Laravel dideploy ke Railway dengan cara menghubungkan repository GitHub ke Railway melalui fitur Deploy from GitHub Repo. Setelah service Laravel dibuat, ditambahkan database MySQL dari Railway dan dihubungkan ke service Laravel tersebut. Konfigurasi environment dilakukan melalui Variables di Railway dengan mengatur APP_ENV ke production, menambahkan APP_KEY, serta menggunakan variabel bawaan Railway untuk koneksi database (MYSQLHOST, MYSQLPORT, MYSQLDATABASE, MYSQLUSER, MYSQLPASSWORD).
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Setelah konfigurasi selesai, dilakukan pembersihan cache dan migrasi database menggunakan Railway CLI agar aplikasi dapat berjalan dengan benar di environment production. Asset frontend seperti CSS dan JavaScript dibuild dari folder resources menggunakan npm run build, lalu hasil build di folder public dipush ke GitHub agar dapat dimuat di website live.
 
-## Contributing
+File gambar dan asset statis dipastikan berada di dalam folder public karena hanya folder tersebut yang dapat diakses langsung di production. Untuk data gambar yang berasal dari database dan storage, digunakan symbolic link storage:link agar file dapat diakses melalui public/storage.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Website dapat diakses melalui Public Domain yang disediakan oleh Railway. Link tersebut berfungsi sebagai link staging maupun link publik untuk pengumpulan tugas. Konsep staging yang digunakan adalah website hasil deploy di Railway, bukan berdasarkan nama branch di GitHub. Dengan konfigurasi ini, aplikasi Laravel berhasil berjalan secara online meskipun pengembangan masih dapat dilanjutkan melalui update kode dan database di kemudian hari.
 
-## Code of Conduct
+**Installation**
+git clone https://github.com/alishazaharani/mb-uas.git
+cd mb-uas
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Authors (Tim Pengembang)
+Proyek ini dikembangkan secara berkelompok oleh:
+- Muhammad Erdi Khatami (2310120009)
+- Mutiara Savitrie (2310120028)
+- Alisha Zaharani (2310120015)
 
-## Security Vulnerabilities
+Setiap anggota berkontribusi dalam pengembangan backend, frontend, serta pengelolaan proses rekayasa perangkat lunak.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## GitHub Repository:
+https://github.com/alishazaharani/mb-uas.git
 
-## License
+## Conclusion
+Proyek MitraBuana.id menunjukkan penerapan konsep Web Framework dan Rekayasa Perangkat Lunak dalam konteks kerja tim, mulai dari pengembangan fitur, integrasi sistem, hingga deployment aplikasi ke lingkungan production.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Backend CI](https://github.com/alishazaharani/mb-uas/actions/workflows/backend-ci.yml/badge.svg)
+
