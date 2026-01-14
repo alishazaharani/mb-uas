@@ -14,7 +14,7 @@ class HomeController extends Controller
         $previewCategories = Category::with(['products' => function ($query) {
             $query->latest()->take(6);
         }])
-        ->whereIn('name', ['sembako', 'kecantikan'])
+        ->whereIn('name', ['SEMBAKO', 'KEBERSIHAN'])
         ->get();
 
         $categories = Category::all();
