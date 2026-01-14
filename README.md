@@ -76,5 +76,4 @@ https://github.com/alishazaharani/mb-uas.git
 ## Conclusion
 Proyek MitraBuana.id menunjukkan penerapan konsep Web Framework dan Rekayasa Perangkat Lunak dalam konteks kerja tim, mulai dari pengembangan fitur, integrasi sistem, hingga deployment aplikasi ke lingkungan production.
 
-![Backend CI](https://github.com/alishazaharani/mb-uas/actions/workflows/backend-ci.yml/badge.svg)
 
