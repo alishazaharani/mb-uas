@@ -178,12 +178,12 @@
                 {
                     "name": "Dragonfly Development Inc.",
                     "email": "info@dflydev.com",
-                    "homepage": "http://dflydev.com"
+                    "homepage": "/dflydev.com"
                 },
                 {
                     "name": "Beau Simensen",
                     "email": "beau@dflydev.com",
-                    "homepage": "http://beausimensen.com"
+                    "homepage": "/beausimensen.com"
                 },
                 {
                     "name": "Carlos Frutos",
@@ -2737,7 +2737,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "/www.php-fig.org/"
                 }
             ],
             "description": "Standard interfaces for event handling.",
@@ -7610,7 +7610,7 @@
                 }
             ],
             "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
-            "homepage": "http://www.phpdoc.org",
+            "homepage": "/www.phpdoc.org",
             "keywords": [
                 "FQSEN",
                 "phpDocumentor",
