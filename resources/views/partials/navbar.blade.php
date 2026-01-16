@@ -17,7 +17,7 @@
 
     {{-- RIGHT --}}
     <div class="navbar-right">
-        <a href="#" class="nav-link">About</a>
+        <a href="{{ route('about') }}">About</a>
 
         @guest
             <a href="{{ route('login') }}" class="btn-outline">Masuk</a>
@@ -30,7 +30,7 @@
 
                 <div class="dropdown-menu" id="userDropdownMenu" role="menu">
                     <a href="{{ route('home') }}">Dashboard</a>
-                    <a href="{{ route('profile.edit') }}">Profile</a>
+                    <a href="{{ route('profile.index') }}">Profile</a>
 
                     @if(auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}">Dashboard Admin</a>

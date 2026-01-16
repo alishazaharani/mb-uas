@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('admin@gmail.com'),
+                'password' => Hash::make('admin123'),
                 'role'=> 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -71,5 +71,10 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+
+        $this->call([
+        CategorySeeder::class,
+        ProductSeeder::class,
+    ]);
     }
 }

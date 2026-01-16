@@ -12,6 +12,7 @@ use App\Http\Controllers\SuperAdmin\DashboardController;
 use App\Http\Controllers\SuperAdmin\SuperUserController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CoController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,10 @@ Route::get('/category/{id}', [CategoryController::class, 'show'])
 Route::get('/search', [ProductController::class, 'search'])
     ->name('search');
 
+ Route::get('/about', function () {return view('pages.about');
+})->name('about');
+
+
 /*
 |--------------------------------------------------------------------------
 | AUTHENTICATED (ALL ROLES)
@@ -35,10 +40,10 @@ Route::get('/search', [ProductController::class, 'search'])
 Route::middleware(['auth'])->group(function () {
 
     // profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
+
 
 Route::middleware(['auth','role:user'])->group(function () {
 
@@ -53,7 +58,10 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.delete');
 
-    
+    Route::post('/checkout-all', [CheckoutController::class, 'checkoutAll'])
+    ->name('checkout.all')
+    ->middleware('auth');
+
 });
 
 /*
@@ -90,6 +98,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         Route::get('/', [PesananController::class, 'index'])->name('index');
         Route::patch('/update-status/{id}', [PesananController::class, 'updateStatus'])->name('updateStatus');
     });
+
 });
 /*
 |--------------------------------------------------------------------------
@@ -105,7 +114,10 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
         Route::patch('/update/{id}', [SuperUserController::class, 'update'])->name('update');
         Route::delete('/users/{id}', [SuperUserController::class, 'destroy'])->name('delete');
     });
+
+    
 });
+
 
 /*
 |--------------------------------------------------------------------------

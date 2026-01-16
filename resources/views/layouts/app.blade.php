@@ -4,15 +4,31 @@
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <meta name="csrf-token" content="{{ csrf_token() }}"> 
-        <title>{{ config('app.name', 'Laravel') }}</title> <!-- Fonts --> 
+
+        <!-- TITLE TAB -->
+        <title>Mitra Buana</title>
+
+        <!-- FAVICON / LOGO TAB -->
+        <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
+        <link rel="apple-touch-icon" href="{{ asset('favicon.ico') }}">
+
+        <!-- Fonts --> 
         <link rel="preconnect" href="https://fonts.bunny.net"> 
-        <link rel="stylesheet" href="{{ asset('mitrabuana/superadmin/css/superadmin.css') }}">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ asset('mitrabuana/superadmin/css/superadmin.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+              crossorigin="anonymous">
+
+        <!-- SweetAlert -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- Scripts --> 
         @vite(['resources/css/app.css', 'resources/js/app.js']) 
     </head>
+
     <style>
         .stat-box {
             border-radius: 8px;
@@ -58,6 +74,8 @@
 
     @include('layouts.navigation')
 
+    @auth
+    @if(auth()->user()->role === 'superadmin')
     <div class="container mt-4">
         <div class="shadow-sm card">
             <div class="card-body">
@@ -96,7 +114,8 @@
             </div>
         </div>
     </div>
-
+ @endif
+@endauth
 
     {{-- PAGE CONTENT --}}
     <main class="container py-4 ">

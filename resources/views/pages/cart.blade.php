@@ -53,13 +53,12 @@
     {{-- Tombol Checkout Semua --}}
     @if($carts->count())
     <div class="text-end mt-3">
-        <form action="{{ route('checkout.index') }}" method="GET">
-            @csrf
-            <input type="hidden" name="products" value="{{ implode(',', $productIds) }}">
-            <button class="btn btn-success btn-lg">
-                Checkout Semua
-            </button>
-        </form>
+        <form action="{{ route('checkout.all') }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-success">
+        Checkout Semua
+    </button>
+</form>
     </div>
     @endif
 </div>

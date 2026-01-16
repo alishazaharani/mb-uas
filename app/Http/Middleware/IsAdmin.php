@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsSuperAdmin
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,11 @@ class IsSuperAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle($request, Closure $next)
-  {
-   if (!Auth::check() || Auth::user()->role !== 'superadmin') {
-            abort(403);
+{
+     if (Auth::check() && Auth::user()->role === 'admin') {
+            return $next($request);
     }
-    return $next($request);
-  }
 
+    abort(403, 'Akses khusus admin');
+}
 }

@@ -56,46 +56,49 @@
     </style>
 <body class="bg-light">
 
-    @include('layouts.navigation')
+    @auth
+    @if(auth()->user()->role === 'superadmin')
+        <div class="container mt-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="mb-3 font-weight-bold">Quick Access</h5>
 
-    <div class="container mt-4">
-        <div class="shadow-sm card">
-            <div class="card-body">
-                <h5 class="mb-3 font-weight-bold">Quick Access</h5>
+                    <div class="d-flex flex-row text-center">
+                        <div class="col-6 col-md-3 mb-3">
+                            <a href="#" class="card shadow-sm p-3 text-decoration-none">
+                                <div class="fs-3">📦</div>
+                                <small>Kelola Produk</small>
+                            </a>
+                        </div>
 
-                <div class="flex-row text-center d-flex ">
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="#" class="p-3 shadow-sm card text-decoration-none">
-                            <div class="fs-3">📦</div>
-                            <small>Kelola Produk</small>
-                        </a>
+                        <div class="col-6 col-md-3 mb-3">
+                            <a href="{{ route('superadmin.users.index') }}"
+                               class="card shadow-sm p-3 text-decoration-none">
+                                <div class="fs-3">👥</div>
+                                <small>User & Role</small>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-3 mb-3">
+                            <a href="#" class="card shadow-sm p-3 text-decoration-none">
+                                <div class="fs-3">🕒</div>
+                                <small>Absensi</small>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-3 mb-3">
+                            <a href="#" class="card shadow-sm p-3 text-decoration-none">
+                                <div class="fs-3">📊</div>
+                                <small>Laporan</small>
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="{{ route('superadmin.users.index') }}" class="p-3 shadow-sm card text-decoration-none {{ request()->routeIs('superadmin.users.*') ? 'active-quick' : '' }}">
-                            <div class="fs-3">👥</div>
-                            <small>User & Role</small>
-                        </a>
-                    </div>
-
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="#" class="p-3 shadow-sm card text-decoration-none">
-                            <div class="fs-3">🕒</div>
-                            <small>Absensi</small>
-                        </a>
-                    </div>
-
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="#" class="p-3 shadow-sm card text-decoration-none">
-                            <div class="fs-3">📊</div>
-                            <small>Laporan</small>
-                        </a>
-                    </div>
                 </div>
-
             </div>
         </div>
-    </div>
+    @endif
+@endauth
 
 
     {{-- PAGE CONTENT --}}
