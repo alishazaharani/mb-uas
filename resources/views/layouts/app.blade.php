@@ -12,14 +12,14 @@
             <h2 class="section-title">Kategori Pilihan</h2>
 
             <div class="category-grid">
-                @foreach ($categories as $category)
-                    <a href="{{ route('category.show', $category->id) }}" class="category-card">
-                        {{-- Pastikan semua gambar kategori ada di public/mitrabuana/categories --}}
-                        <img src="{{ $category->image ? asset('mitrabuana/categories/' . $category->image) : asset('mitrabuana/images/no-image.png') }}" alt="{{ $category->name }}">
-                        <p>{{ $category->name }}</p>
-                    </a>
-                @endforeach
-            </div>
+    @foreach ($categories as $category)
+        <a href="{{ route('category.show', $category->id) }}" class="category-card">
+            {{-- Pastikan semua gambar kategori ada di public/mitrabuana/categories --}}
+            <img src="{{ $category->image ? asset($category->image) : asset('mitrabuana/images/no-image.png') }}" alt="{{ $category->name }}">
+            <p>{{ $category->name }}</p>
+        </a>
+    @endforeach
+</div>
         </div>
     </section>
 
