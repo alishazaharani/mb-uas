@@ -27,8 +27,10 @@ class AppServiceProvider extends ServiceProvider
         URL::forceScheme('https');
     }
     {
-        // Share $categories ke semua view
-        View::share('categories', Category::all());
-    }
+       View::share('categories', Category::all());
+
+        // Share kategori untuk preview (misal kategori yang ada produk)
+        View::share('previewCategories', Category::with('products')->get());
+}
 }
 }
