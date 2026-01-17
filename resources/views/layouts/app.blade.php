@@ -1,133 +1,118 @@
-<!DOCTYPE html> 
-<html> 
-    <head> 
-        <meta charset="utf-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <meta name="csrf-token" content="{{ csrf_token() }}"> 
+@extends('layouts.frontend')
 
-        <!-- TITLE TAB -->
-        <title>Mitra Buana</title>
+@section('content')
+    {{-- HERO / BANNER --}}
+    <section class="home-hero">
+        <img src="{{ asset('mitrabuana/homepage/images/banner.png') }}" alt="Mitra Buana Banner">
+    </section>
 
-        <!-- FAVICON / LOGO TAB -->
-        <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
-        <link rel="apple-touch-icon" href="{{ asset('favicon.ico') }}">
+    {{-- KATEGORI PILIHAN --}}
+    <section class="container">
+        <div class="category-wrapper">
+            <h2 class="section-title">Kategori Pilihan</h2>
 
-        <!-- Fonts --> 
-        <link rel="preconnect" href="https://fonts.bunny.net"> 
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> 
+            <div class="category-grid">
+                @foreach ($categories as $category)
+                    <a href="{{ route('category.show', $category->id) }}" class="category-card">
+                        {{-- Pastikan semua gambar kategori ada di public/mitrabuana/categories --}}
+                        <img src="{{ $category->image ? asset('mitrabuana/categories/' . $category->image) : asset('mitrabuana/images/no-image.png') }}" alt="{{ $category->name }}">
+                        <p>{{ $category->name }}</p>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="{{ asset('mitrabuana/superadmin/css/superadmin.css') }}">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-              crossorigin="anonymous">
+    {{-- PRODUK PILIHAN / FOR YOU --}}
+    <section class="container">
+        <h2 class="section-title">Untuk Kamu</h2>
 
-        <!-- SweetAlert -->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-        <!-- Scripts --> 
-        @vite(['resources/css/app.css', 'resources/js/app.js']) 
-    </head>
-
-    <style>
-        .stat-box {
-            border-radius: 8px;
-            padding: 20px;
-            color: #fff;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,.1);
-        }
-
-        .stat-box h6 {
-            font-size: 13px;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-
-        .stat-box h4 {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .bg-blue {
-            background: linear-gradient(45deg, #4e73df, #224abe);
-        }
-
-        .bg-green {
-            background: linear-gradient(45deg, #1cc88a, #13855c);
-        }
-
-        .bg-orange {
-            background: linear-gradient(45deg, #f6c23e, #dda20a);
-        }
-
-        .bg-purple {
-            background: linear-gradient(45deg, #6f42c1, #4e2a8e);
-        }
-        .active-quick {
-            border: 2px solid #4e73df;
-            background-color: #f0f4ff;
-        }
-
-    </style>
-<body class="bg-light">
-
-    @include('layouts.navigation')
-
-    @auth
-    @if(auth()->user()->role === 'superadmin')
-    <div class="container mt-4">
-        <div class="shadow-sm card">
-            <div class="card-body">
-                <h5 class="mb-3 font-weight-bold">Quick Access</h5>
-
-                <div class="flex-row text-center d-flex ">
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="#" class="p-3 shadow-sm card text-decoration-none">
-                            <div class="fs-3">📦</div>
-                            <small>Kelola Produk</small>
-                        </a>
+        <div class="product-grid">
+            @foreach ($products as $product)
+                <div class="product-card">
+                    <div class="product-image">
+                        {{-- Pastikan semua gambar produk ada di public/mitrabuana/products --}}
+                        <img src="{{ $product->image ? asset('mitrabuana/products/' . $product->image) : asset('mitrabuana/images/no-image.png') }}" alt="{{ $product->name }}">
                     </div>
 
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="{{ route('superadmin.users.index') }}" class="p-3 shadow-sm card text-decoration-none {{ request()->routeIs('superadmin.users.*') ? 'active-quick' : '' }}">
-                            <div class="fs-3">👥</div>
-                            <small>User & Role</small>
-                        </a>
-                    </div>
-
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="#" class="p-3 shadow-sm card text-decoration-none">
-                            <div class="fs-3">🕒</div>
-                            <small>Absensi</small>
-                        </a>
-                    </div>
-
-                    <div class="mb-3 col-6 col-md-3">
-                        <a href="#" class="p-3 shadow-sm card text-decoration-none">
-                            <div class="fs-3">📊</div>
-                            <small>Laporan</small>
-                        </a>
+                    <div class="product-info">
+                        <p class="product-name">{{ $product->name }}</p>
+                        <p class="product-price">Rp {{ number_format($product->price) }}</p>
+                        <button type="button"
+                                class="mt-2 btn btn-sm btn-primary w-100 btn-checkout"
+                                data-product="{{ $product->id }}">
+                            Checkout
+                        </button>
                     </div>
                 </div>
+            @endforeach
+        </div>
+    </section>
 
+    {{-- SECTION PER KATEGORI (STYLE BIRU) --}}
+    @foreach ($previewCategories as $category)
+        <section class="category-preview-wrapper">
+            <h2 class="category-preview-title">{{ $category->name }}</h2>
+
+            <div class="category-preview-list">
+                @forelse($category->products as $product)
+                    <div class="product-preview-card">
+                        <div class="product-image">
+                            <img src="{{ $product->image ? asset('mitrabuana/products/' . $product->image) : asset('mitrabuana/images/no-image.png') }}" alt="{{ $product->name }}">
+                        </div>
+                        
+                        <div class="product-info">
+                            <p class="product-name">{{ $product->name }}</p>
+                            <p class="product-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <p class="text-white">Belum ada produk</p>
+                @endforelse
+            </div>
+        </section>
+    @endforeach
+
+    {{-- MODAL CHECKOUT --}}
+    <div class="modal fade" id="checkoutModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pilih Aksi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="text-center modal-body">
+                    <p class="mb-4">Produk akan diproses, pilih aksi:</p>
+
+                    <div class="gap-2 d-grid">
+                        <a href="#" id="btnAddToCart" class="btn btn-secondary">Masukkan ke Cart</a>
+                        <a href="#" id="btnCheckoutNow" class="btn btn-primary">Checkout Sekarang</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
- @endif
-@endauth
 
-    {{-- PAGE CONTENT --}}
-    <main class="container py-4 ">
-        @include('sweetalert::alert')
-        @yield('content')
-    </main>
+    {{-- SCRIPT CHECKOUT MODAL --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+            let selectedProduct = null;
 
-    {{-- JS --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.9/dist/sweetalert2.all.min.js"></script>
-</body>
-</html>
+            document.querySelectorAll('.btn-checkout').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    selectedProduct = this.dataset.product;
+
+                    document.getElementById('btnCheckoutNow').href =
+                        `{{ route('checkout.index') }}?product=${selectedProduct}`;
+
+                    document.getElementById('btnAddToCart').href =
+                        `{{ route('cart.index') }}?product=${selectedProduct}`;
+
+                    modal.show();
+                });
+            });
+        });
+    </script>
+@endsection
